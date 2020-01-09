@@ -611,16 +611,18 @@
 
             $label = Widget::Label($this->get('label'));
             if($this->get('required') != 'yes') $label->appendChild(new XMLElement('i', __('Optional')));
-            $label->appendChild(
-                Widget::Select($fieldname, $options, ($this->get('allow_multiple_selection') == 'yes' ? array(
-                    'multiple' => 'multiple') : null
-                ))
-            );
 
             if(!is_null($flagWithError)) {
                 $wrapper->appendChild(Widget::Error($label, $flagWithError));
             }
             else $wrapper->appendChild($label);
+
+            $wrapper->appendChild(
+                Widget::Select($fieldname, $options, ($this->get('allow_multiple_selection') == 'yes' ? array(
+                    'multiple' => 'multiple', 'size' => count($options)) : null
+                ))
+            );
+
         }
 
         public function processRawFieldData($data, &$status, &$message = null, $simulate = false, $entry_id = null) {
